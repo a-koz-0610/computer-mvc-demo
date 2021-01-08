@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Computers</title>
+</head>
+
+<body>
+    <h1>All Computers</h1>
+    <div th:each="computer: ${allComputersModel}">
+
+        <a th:href="'/computers/' + ${computer.name}">
+            <h2 th:text=${computer.name}></h2>
+        </a>
+    </div>
+</body>
+
+</html>
