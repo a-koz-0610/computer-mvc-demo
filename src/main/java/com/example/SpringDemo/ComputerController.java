@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Controller
 public class ComputerController {
 
@@ -19,20 +21,23 @@ public class ComputerController {
 
     @RequestMapping("/computers")
     public String getAllComputers(Model model) {
-        model.addAttribute("allComputersModel", computerRepo.getAllComputers());
+        model.addAttribute("allComputersModel", computerRepo.findAll());
         return "all-computers-template";
     }
 
-    // @RequestMapping("/computers/{id}")
-    // public String getOneComputer(@PathVariable Long id, Model model) {
-    // model.addAttribute("singleComputerModel", computerRepo.getOneComputer(id));
-    // return "one-computer-template";
-    // }
-
     @RequestMapping("/computers/{name}")
     public String getOneComputerbyName(@PathVariable String name, Model model) {
-        model.addAttribute("singleComputerModel", computerRepo.getOneComputerByName(name));
-        return "one-computer-template";
+        Computer retrievedComputer = computerRepo.findComputerByName(name);
+        model.addAttribute("singleComputerModel", retrievedComputer);
+        return "one-computer-template-name";
     }
+
+    @RequestMapping("/computers-by-id/{id}")
+    public String getOneComputer(@PathVariable Long id, Model model) {
+        Optional<Computer> computer = computerRepo.findById(id);
+        model.addAttribute("singleComputerModel", computer.get());
+        return "one-computer-template-id";
+    }
+
 
 }

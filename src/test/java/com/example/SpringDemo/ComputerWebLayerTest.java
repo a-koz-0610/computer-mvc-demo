@@ -34,19 +34,19 @@ public class ComputerWebLayerTest {
 
     @Test
     public void shouldReturnOkWhenFindingAllComputers() throws Exception {
-        when(computerRepo.getAllComputers()).thenReturn(Arrays.asList(comp1, comp2));
+        when(computerRepo.findAll()).thenReturn(Arrays.asList(comp1, comp2));
         mockMvc.perform(get("/computers")).andExpect(status().isOk());
     }
 
     @Test
     public void shouldReturnOkWhenFindingComp1() throws Exception {
-        when(computerRepo.getOneComputerByName(comp1Name)).thenReturn(comp1);
+        when(computerRepo.findComputerByName(comp1Name)).thenReturn(comp1);
         mockMvc.perform(get("/computers/mac")).andExpect(status().isOk());
     }
 
     @Test
     public void shouldAddComp1ToModel() throws Exception {
-        when(computerRepo.getOneComputerByName(comp1Name)).thenReturn(comp1);
+        when(computerRepo.findComputerByName(comp1Name)).thenReturn(comp1);
         mockMvc.perform(get("/computers/mac")).andExpect(model().attribute("singleComputerModel",is(comp1)));
     }
 
